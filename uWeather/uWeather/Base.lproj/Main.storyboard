@@ -398,7 +398,7 @@ an umbrella, as a light rain is falling</string>
                                 <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AllCitiesCell" rowHeight="110" id="ujK-Q5-8Es" customClass="AllCitiesCell" customModule="uWeather" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AllCitiesCell" rowHeight="110" id="ujK-Q5-8Es" customClass="AllCitiesCell" customModule="uWeather" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ujK-Q5-8Es" id="iAh-dK-cZ8">
@@ -431,7 +431,7 @@ an umbrella, as a light rain is falling</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.43137254901960786" green="0.1803921568627451" blue="0.5725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.43137254901960786" green="0.1803921568627451" blue="0.59587491246498603" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="IRK-oe-As0" firstAttribute="top" secondItem="iAh-dK-cZ8" secondAttribute="top" constant="25" id="NuV-eg-8ad"/>
                                                 <constraint firstAttribute="trailing" secondItem="MXw-jX-dTm" secondAttribute="trailing" constant="25" id="R3t-wq-ZqC"/>
