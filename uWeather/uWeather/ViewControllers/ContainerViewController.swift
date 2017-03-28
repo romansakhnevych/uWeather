@@ -8,20 +8,41 @@
 
 import UIKit
 
+let toAllCitiesSegueIdentifier = "toAllCitiesSegueIdentifier"
+
 class ContainerViewController: BaseViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
+    var weatherModel: WeatherModel?
+    var favorite = [WeatherModel]()
     
-    var viewControllers = [UIViewController]()
+    var viewControllers = [WeatherDataSourceProtocol]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let ws = WeatherServices()
+        ws.getWeather(city: "Lviv", success: { (weatherModel) in
+            self.weatherModel = weatherModel
+            self.favorite.append(weatherModel)
+            DispatchQueue.main.async {
+                self.fillChildViewControllers(model: weatherModel)
+            }
+        }) { (error) in
+            
+        }
         setupUIi()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func fillChildViewControllers(model: WeatherModel) {
+        for viewController in self.viewControllers {
+            viewController.fill(model: model)
+        }
     }
     
     //MARK: - Setup
@@ -32,8 +53,8 @@ class ContainerViewController: BaseViewController {
     
     private func setupChildViewControllers() {
         scrollView.contentSize = CGSize(width: view.bounds.width * 2, height: view.frame.height - 20)
-        viewControllers.append(addChildViewController(identifier: String(describing: WeatherViewController.self)))
-        viewControllers.append(addChildViewController(identifier: String(describing: DetailWeatherViewController.self)))
+        viewControllers.append(addChildViewController(identifier: String(describing: WeatherViewController.self)) as! WeatherDataSourceProtocol)
+        viewControllers.append(addChildViewController(identifier: String(describing: DetailWeatherViewController.self)) as! WeatherDataSourceProtocol)
     }
     
     private func addChildViewController(identifier: String) -> UIViewController {
@@ -49,6 +70,22 @@ class ContainerViewController: BaseViewController {
         scrollView.addSubview(viewController!.view)
         viewController!.didMove(toParentViewController: self)
         return viewController!
+    }
+    
+    //MARK: Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == toAllCitiesSegueIdentifier {
+            let viewController = segue.destination as! AllCitiesViewController
+            viewController.favorite = self.favorite
+            viewController.delegate = self
+        }
+    }
+}
+
+extension ContainerViewController: AllCitiesViewControllerDelegate {
+    func viewComtroller(viewController: AllCitiesViewController, didSelecteWeather weatherModel: WeatherModel) {
+        self.favorite.append(weatherModel)
+        self.fillChildViewControllers(model: weatherModel)
     }
 }
 
